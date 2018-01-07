@@ -7,20 +7,17 @@ class Calculator extends Component {
   state = {
     showPopup: false,
     ready: false,
+    errorMessage: null,
     isBig: '',
     isNeedle: '',
     shouldBig: '',
-    shouldNeedle: ''
+    shouldNeedle: '',
+    willBeBig: '',
+    willBeNeedle: ''
   }
 
   componentDidUpdate() {
     this.checkReady();
-  }
-
-  updateValue = (field, event) => {
-    this.setState({
-      [field]: event.target.value
-    })
   }
 
   checkReady = () => {
@@ -36,6 +33,58 @@ class Calculator extends Component {
           ready: false
         })
       }
+    }
+  }
+
+  updateValue = (field, event) => {
+    const e = event.target.value;
+    if (this.validateEntry(e)) {
+      this.setState({
+        [field]: e,
+        errorMessage: null
+      })
+    }
+  }
+
+  validateEntry = (value) => {
+    // get last character
+    const char = value[value.length - 1]
+    // test if valid character
+    if (/[0-9/. /]/.test(char)) {
+      // if it's a slash...
+      if (char === '/') {
+        // ... and it's the first character, or has a space or slash or period in front, throw error
+        if ((value.length === 1) || (/[/. /]/.test(value[value.length - 2]))) {
+          this.setState({
+            errorMessage: "Invalid slash"
+          });
+          return false;
+        // ... otherwise it's probably fine
+        } else {
+          return true;
+        }
+      }
+      // acceptable character
+      return true;
+    } else if (value === '') {
+      return true;
+    } else {
+      this.setState({
+        errorMessage: "Only numbers, spaces, forward slashes and periods allowed. Example: 4 1/2 or 5.5"
+      });
+      return false;
+    }
+  }
+
+  calculate = () => {
+    // calculate what the new size will be
+    if (this.state.shouldBig === '') {
+      const newSize = (this.state.shouldNeedle / this.state.isNeedle) * this.state.isBig;
+      console.log(newSize);
+    // calculate what the new needle should be
+    } else {
+      const newNeedle = (this.state.shouldBig / this.state.isBig) * this.state.isNeedle;
+      console.log(newNeedle)
     }
   }
 
@@ -56,6 +105,9 @@ class Calculator extends Component {
           (help)
         </a>
         <div className="calculator">
+          <p className="error">
+            {this.state.errorMessage}
+          </p>
           <p className="title">
             What it is:
             <span>(Answer both)</span>
@@ -95,6 +147,7 @@ class Calculator extends Component {
             updateValue={this.updateValue}/>
           <div className="buttonHolder">
             <button 
+              onClick={this.calculate}
               className="button"
               disabled={!this.state.ready}>
               Calculate
