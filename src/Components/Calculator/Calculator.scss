@@ -1,0 +1,21 @@
+@import '../../styles/_mixins.scss';
+@import '../../styles/_colors.scss';
+
+.calculator {
+  margin: 20px auto 0 auto;
+  padding: 10px;
+  max-width: 600px;
+  border: 1px solid $main;
+  @include round(10px);
+  .title {
+    font-weight: bold;
+    span {
+      font-weight: normal;
+      display: block;
+      font-style: italic;
+      font-size: .8em;
+      line-height: .8em;
+      color: lighten($text, 20%);
+    }
+  }
+}
