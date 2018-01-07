@@ -36,7 +36,7 @@
 		text-decoration: none;
 		&:hover {
 			color: $main;
-			text-decoration: underline;
+			// text-decoration: underline;
 			cursor: pointer;
 		}
 	}
@@ -48,5 +48,13 @@
 
 	strong {
 		font-weight:bold;
+	}
+
+	ol {
+		margin-left: 10px;
+	}
+
+	li {
+		line-height: 120%;
 	}
 //*============END TEXT STYLING============*/

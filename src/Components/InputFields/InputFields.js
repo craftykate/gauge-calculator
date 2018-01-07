@@ -5,23 +5,31 @@ const inputFields = (props) => {
     {
       type: "isBig",
       title: "How big it is",
-      hint: <p>slkdf</p>
+      placeholder: "Ex: 6 5/8"
     },
     {
       type: "isNeedle",
       title: "Needle/hook used (in mm)",
-      hint: <p>akdfjfkjdk</p>
-    }
+      placeholder: "Ex: 3.5"
+    },
+    {
+      type: "shouldBig",
+      title: "How big should it be",
+      placeholder: "Ex: 7 1/4"
+    },
+    {
+      type: "shouldNeedle",
+      title: "Needle/hook to use (in mm)",
+      placeholder: "Ex: 4"
+    },
   ]
   const info = fields.find(ele => ele.type === props.type);
 
   return (
     <div className="inputFields">
       <p>{info.title}:</p>
-      <input />
-      <p className="hint">
-        {info.hint}
-      </p>
+      <input 
+        placeholder={info.placeholder}/>
     </div>
   )
 };

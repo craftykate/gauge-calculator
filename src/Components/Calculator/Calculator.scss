@@ -2,7 +2,7 @@
 @import '../../styles/_colors.scss';
 
 .calculator {
-  margin: 20px auto 0 auto;
+  margin: 0 auto;
   padding: 10px;
   max-width: 600px;
   border: 1px solid $main;
@@ -22,5 +22,17 @@
     margin-top: 20px;
     width: 50%;
     display: inline-block;
+  }
+  .hint {
+    cursor: pointer;
+    font-size: 80%;
+  }
+  .buttonHolder {
+    margin-top: 20px;
+    text-align: center;
+    .button {
+      @include button($main, darken($main, 20%));
+      display: inline-block;
+    }
   }
 }
