@@ -4,10 +4,16 @@ import InputFields from '../InputFields/InputFields';
 import Popup from '../UI/Popup/Popup'; 
 
 class Calculator extends Component {
-  state = {
+  constructor(props) {
+    super(props);
+    this.state = {...this.initialState};
+  }
+
+  initialState = {
     showPopup: false,
     ready: false,
     errorMessage: null,
+    showResults: false,
     isBig: '',
     isNeedle: '',
     shouldBig: '',
@@ -21,16 +27,7 @@ class Calculator extends Component {
   }
 
   reset = () => {
-    this.setState({
-      ready: false,
-      errorMessage: null,
-      isBig: '',
-      isNeedle: '',
-      shouldBig: '',
-      shouldNeedle: '',
-      willBeBig: '',
-      willBeNeedle: ''
-    })
+    this.setState({...this.initialState})
   }
 
   checkReady = () => {
@@ -54,7 +51,9 @@ class Calculator extends Component {
     if (this.validateEntry(e)) {
       this.setState({
         [field]: e,
-        errorMessage: null
+        ready: false,
+        errorMessage: null,
+        showResults: false,
       })
     }
   }
@@ -93,11 +92,19 @@ class Calculator extends Component {
     // calculate what the new size will be
     if (this.state.shouldBig === '') {
       const newSize = (this.state.shouldNeedle / this.state.isNeedle) * this.state.isBig;
-      console.log(newSize);
+      this.setState({
+        showResults: true,
+        willBeBig: newSize,
+        willBeNeedle: this.state.shouldNeedle
+      })
     // calculate what the new needle should be
     } else {
       const newNeedle = (this.state.shouldBig / this.state.isBig) * this.state.isNeedle;
-      console.log(newNeedle)
+      this.setState({
+        showResults: true,
+        willBeBig: this.state.shouldBig,
+        willBeNeedle: newNeedle
+      })
     }
   }
 
@@ -118,9 +125,11 @@ class Calculator extends Component {
           (help)
         </a>
         <div className="calculator">
-          <p className="error">
-            {this.state.errorMessage}
-          </p>
+          {this.state.errorMessage ? 
+            <p className="error">
+              {this.state.errorMessage}
+            </p>
+          : null}
           <p className="title">
             What it is:
             <span>(Answer both)</span>
@@ -175,6 +184,12 @@ class Calculator extends Component {
             </a>
           </div>
         </div>
+        {this.state.showResults ? 
+          <div className="result">
+            <p className="title">What it will be:</p>
+            <p>Using a <span style={{ fontWeight: 'bold' }}>{this.state.willBeNeedle}</span>mm needle/hook your item will be <span style={{ fontWeight: 'bold' }}>{this.state.willBeBig}</span> units big</p>
+          </div>
+        : null}
       </React.Fragment>
     )
   }

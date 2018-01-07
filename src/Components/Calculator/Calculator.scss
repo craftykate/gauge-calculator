@@ -1,10 +1,9 @@
 @import '../../styles/_mixins.scss';
 @import '../../styles/_colors.scss';
 
-.calculator {
+.calculator, .result {
   margin: 0 auto;
   padding: 10px;
-  max-width: 600px;
   border: 1px solid $main;
   @include round(10px);
   .error {
@@ -44,4 +43,8 @@
       }
     }
   }
+}
+
+.result {
+  margin-top: 20px;
 }
