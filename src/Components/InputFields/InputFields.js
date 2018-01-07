@@ -25,12 +25,21 @@ const inputFields = (props) => {
   ]
   const info = fields.find(ele => ele.type === props.type);
 
+  let placeholder = null;
+  let disabled = false;
+  if (props.placeholder) {
+    placeholder = "leave blank"
+    disabled = true;
+  }
+
   return (
     <div className="inputFields">
       <p>{info.title}:</p>
       <input 
         value={props.value}
-        onChange={(event) => props.updateValue(info.type, event)}/>
+        onChange={(event) => props.updateValue(info.type, event)}
+        placeholder={placeholder}
+        disabled={disabled}/>
     </div>
   )
 };

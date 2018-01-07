@@ -144,6 +144,7 @@ class Calculator extends Component {
             <p>Example: if your item is 4" long the calculated results will show the new length in inches</p>
             <p style={{fontWeight:'bold'}}>What it should be:</p>
             <p>Answer only one, the blank one will be calculated.</p>
+            <p>Erase the filled in one first if you want to switch which one gets calculated</p>
           </Popup>
           <hr />
           <p className="title">
@@ -153,11 +154,13 @@ class Calculator extends Component {
           <InputFields
             type="shouldBig"
             value={this.state.shouldBig}
-            updateValue={this.updateValue}/>
+            updateValue={this.updateValue}
+            placeholder={this.state.shouldNeedle}/>
           <InputFields
             type="shouldNeedle"
             value={this.state.shouldNeedle}
-            updateValue={this.updateValue}/>
+            updateValue={this.updateValue}
+            placeholder={this.state.shouldBig}/>
           <div className="buttonHolder">
             <button 
               onClick={this.calculate}
