@@ -1,5 +1,6 @@
 const calculations = {
 
+  // return decimal version of number
   undoFraction(number) {
     // if the number includes a slash, you'll have to do math
     if (number.includes("/")) {
@@ -28,21 +29,6 @@ const calculations = {
     // number doesn't include a slash, so return number
     } else {
       return Number(number);
-    }
-  },
-
-  returnNeedles(needle) {
-    const needlesArray = [2, 2.25, 2.75, 3.25, 3.5, 3.75, 4, 4.5, 5, 5.5, 6, 6.5, 8, 9, 10, 12.75, 15, 16, 19, 25];
-    const needle2Index = needlesArray.findIndex(item => item >= needle);
-    if (needlesArray[needle2Index] === needle || needle2Index === 0) {
-      // perfect match found, or it's the first needle, so return the needle
-      return [needlesArray[needle2Index]]
-    } else if (needle2Index === -1) {
-      // last needle wasn't big enough, so just return last needle
-
-      return [needlesArray[needlesArray.length - 1]]
-    } else {
-      return [needlesArray[needle2Index - 1], needlesArray[needle2Index]]
     }
   },
 
@@ -95,14 +81,31 @@ const calculations = {
     return result;
   },
 
+  // return which neele(s) to use
+  returnNeedles(needle) {
+    const needlesArray = [2, 2.25, 2.75, 3.25, 3.5, 3.75, 4, 4.5, 5, 5.5, 6, 6.5, 8, 9, 10, 12.75, 15, 16, 19, 25];
+    const needle2Index = needlesArray.findIndex(item => item >= needle);
+    if (needlesArray[needle2Index] === needle || needle2Index === 0) {
+      // perfect match found, or it's the first needle, so return the needle
+      return [needlesArray[needle2Index]]
+    } else if (needle2Index === -1) {
+      // last needle wasn't big enough, so just return last needle
+
+      return [needlesArray[needlesArray.length - 1]]
+    } else {
+      return [needlesArray[needle2Index - 1], needlesArray[needle2Index]]
+    }
+  },
+
+  // calculates new needle or size
   calculateGuage(isBig, isNeedle, shouldBig, shouldNeedle) {
-    const isBigDecimal = calculations.undoFraction(isBig);
-    const isNeedleDecimal = calculations.undoFraction(isNeedle);
+    const isBigDecimal = this.undoFraction(isBig);
+    const isNeedleDecimal = this.undoFraction(isNeedle);
     let shouldBigDecimal;
     let shouldNeedleDecimal;
     // calculate what the new size will be
     if (shouldBig === '') {
-      shouldNeedleDecimal = calculations.undoFraction(shouldNeedle);
+      shouldNeedleDecimal = this.undoFraction(shouldNeedle);
       let newSize = ((shouldNeedleDecimal / isNeedleDecimal) * isBigDecimal).toFixed(3);
       return [
         [newSize, shouldNeedle],
@@ -110,9 +113,9 @@ const calculations = {
       ]
       // calculate what the new needle should be
     } else {
-      shouldBigDecimal = calculations.undoFraction(shouldBig);
+      shouldBigDecimal = this.undoFraction(shouldBig);
       const newNeedle = ((shouldBigDecimal / isBigDecimal) * isNeedleDecimal);
-      const twoNeedles = calculations.returnNeedles(newNeedle);
+      const twoNeedles = this.returnNeedles(newNeedle);
       let size = [...Array(twoNeedles.length)];
       twoNeedles.forEach((needle, index) => {
         size[index] = ((needle / isNeedleDecimal) * isBigDecimal).toFixed(3);
