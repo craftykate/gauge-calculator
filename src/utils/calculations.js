@@ -37,6 +37,10 @@ const calculations = {
     if (needlesArray[needle2Index] === needle || needle2Index === 0) {
       // perfect match found, or it's the first needle, so return the needle
       return [needlesArray[needle2Index]]
+    } else if (needle2Index === -1) {
+      // last needle wasn't big enough, so just return last needle
+
+      return [needlesArray[needlesArray.length - 1]]
     } else {
       return [needlesArray[needle2Index - 1], needlesArray[needle2Index]]
     }
@@ -90,6 +94,42 @@ const calculations = {
     }
     return result;
   },
+
+  calculateGuage(isBig, isNeedle, shouldBig, shouldNeedle) {
+    const isBigDecimal = calculations.undoFraction(isBig);
+    const isNeedleDecimal = calculations.undoFraction(isNeedle);
+    let shouldBigDecimal;
+    let shouldNeedleDecimal;
+    // calculate what the new size will be
+    if (shouldBig === '') {
+      shouldNeedleDecimal = calculations.undoFraction(shouldNeedle);
+      let newSize = ((shouldNeedleDecimal / isNeedleDecimal) * isBigDecimal).toFixed(3);
+      return [
+        [newSize, shouldNeedle],
+        ['', '']
+      ]
+      // calculate what the new needle should be
+    } else {
+      shouldBigDecimal = calculations.undoFraction(shouldBig);
+      const newNeedle = ((shouldBigDecimal / isBigDecimal) * isNeedleDecimal);
+      const twoNeedles = calculations.returnNeedles(newNeedle);
+      let size = [...Array(twoNeedles.length)];
+      twoNeedles.forEach((needle, index) => {
+        size[index] = ((needle / isNeedleDecimal) * isBigDecimal).toFixed(3);
+      });
+      if (twoNeedles.length === 1) {
+        return [
+          [size[0], twoNeedles[0]],
+          ['', '']
+        ]
+      } else {
+        return [
+          [size[0], twoNeedles[0]],
+          [size[1], twoNeedles[1]]
+        ]
+      }
+    }
+  }
 };
 
 export default calculations;

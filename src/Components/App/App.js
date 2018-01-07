@@ -9,6 +9,7 @@ class App extends Component {
     this.state = { ...this.initialState };
   }
 
+  // set up initial/reset variables so they only need to be entered once
   initialState = {
     showPopup: false,
     ready: false,
@@ -24,14 +25,17 @@ class App extends Component {
     willBeNeedle1: '',
   }
 
+  // check with every keystroke or deletion if calculate button should be ready
   componentDidUpdate() {
     this.checkReady();
   }
 
+  // reset variables
   reset = () => {
     this.setState({ ...this.initialState })
   }
 
+  // checks if both required fields are entered and only 1 "should be" variable is entered. Update state to able/disable calculate button only if it has changed
   checkReady = () => {
     if (this.state.isBig && this.state.isNeedle) {
       if ((this.state.shouldBig || this.state.shouldNeedle) && !(this.state.shouldBig && this.state.shouldNeedle)) {
@@ -48,22 +52,20 @@ class App extends Component {
     }
   }
 
+  // if what is entered in input field is valid, update the state. 
+  // clear error message and hide results if they are showing 
   updateValue = (field, event) => {
     const e = event.target.value;
     if (this.validateEntry(e)) {
       this.setState({
         [field]: e,
-        ready: false,
         errorMessage: null,
         showResults: false,
-        willBeBig: '',
-        willBeNeedle: '',
-        willBeBig1: '',
-        willBeNeedle1: ''
       })
     }
   }
 
+  // checks if keystroke is valid, returns true or false
   validateEntry = (value) => {
     // get last character
     const char = value[value.length - 1]
@@ -94,52 +96,24 @@ class App extends Component {
     }
   }
 
+  // calculate new needles size(s) and unit size(s) and update state
   calculate = () => {
-    const isBigDecimal = calculations.undoFraction(this.state.isBig);
-    const isNeedleDecimal = calculations.undoFraction(this.state.isNeedle);
-    let shouldBigDecimal;
-    let shouldNeedleDecimal;
-    // calculate what the new size will be
-    if (this.state.shouldBig === '') {
-      shouldNeedleDecimal = calculations.undoFraction(this.state.shouldNeedle);
-      let newSize = ((shouldNeedleDecimal / isNeedleDecimal) * isBigDecimal).toFixed(3);
-      this.setState({
-        showResults: true,
-        willBeBig: newSize,
-        willBeNeedle: this.state.shouldNeedle
-      })
-      // calculate what the new needle should be
-    } else {
-      shouldBigDecimal = calculations.undoFraction(this.state.shouldBig);
-      const newNeedle = ((shouldBigDecimal / isBigDecimal) * isNeedleDecimal);
-      const twoNeedles = calculations.returnNeedles(newNeedle);
-      let size = [...Array(twoNeedles.length)];
-      twoNeedles.forEach((needle, index) => {
-        size[index] = ((needle / isNeedleDecimal) * isBigDecimal).toFixed(3);
-      })
-      // console.log(`needle needed: ${newNeedle}`);
-      // console.log(`needles ${twoNeedles}`);
-      // console.log(`sizes ${size}`)
-      twoNeedles.length === 1 ?
-        this.setState({
-          showResults: true,
-          willBeBig: size[0],
-          willBeNeedle: twoNeedles[0]
-        })
-        : this.setState({
-          showResults: true,
-          willBeBig: size[0],
-          willBeNeedle: twoNeedles[0],
-          willBeBig1: size[1],
-          willBeNeedle1: twoNeedles[1]
-        })
-    }
+    const results = calculations.calculateGuage(this.state.isBig, this.state.isNeedle, this.state.shouldBig, this.state.shouldNeedle);
+    this.setState({
+      showResults: true,
+      willBeBig: results[0][0],
+      willBeNeedle: results[0][1],
+      willBeBig1: results[1][0],
+      willBeNeedle1: results[1][1]
+    })
   }
 
+  // shows help
   showPopupHandler = () => {
     this.setState({ showPopup: true })
   }
 
+  // hides help
   hidePopupHandler = () => {
     this.setState({ showPopup: false })
   }
