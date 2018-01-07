@@ -10,7 +10,10 @@ class Calculator extends Component {
           What it is:
           <span>(Answer both)</span>
         </p>
-        <InputFields />
+        <InputFields 
+          type="isBig"/>
+        <InputFields
+          type="isNeedle"/>
       </div>
     )
   }
