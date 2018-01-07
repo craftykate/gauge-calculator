@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './Calculator.css';
 import InputFields from '../InputFields/InputFields';
 import Popup from '../UI/Popup/Popup'; 
+import calculations from '../../utils/calculations';
 
 class Calculator extends Component {
   constructor(props) {
@@ -19,7 +20,9 @@ class Calculator extends Component {
     shouldBig: '',
     shouldNeedle: '',
     willBeBig: '',
-    willBeNeedle: ''
+    willBeNeedle: '',
+    willBeBig1: '',
+    willBeNeedle1: '',
   }
 
   componentDidUpdate() {
@@ -54,6 +57,10 @@ class Calculator extends Component {
         ready: false,
         errorMessage: null,
         showResults: false,
+        willBeBig: '',
+        willBeNeedle: '',
+        willBeBig1: '',
+        willBeNeedle1: ''
       })
     }
   }
@@ -89,9 +96,14 @@ class Calculator extends Component {
   }
 
   calculate = () => {
+    const isBigDecimal = calculations.undoFraction(this.state.isBig);
+    const isNeedleDecimal = calculations.undoFraction(this.state.isNeedle);
+    let shouldBigDecimal;
+    let shouldNeedleDecimal;
     // calculate what the new size will be
     if (this.state.shouldBig === '') {
-      const newSize = (this.state.shouldNeedle / this.state.isNeedle) * this.state.isBig;
+      shouldNeedleDecimal = calculations.undoFraction(this.state.shouldNeedle);
+      let newSize = ((shouldNeedleDecimal / isNeedleDecimal) * isBigDecimal).toFixed(3);
       this.setState({
         showResults: true,
         willBeBig: newSize,
@@ -99,12 +111,29 @@ class Calculator extends Component {
       })
     // calculate what the new needle should be
     } else {
-      const newNeedle = (this.state.shouldBig / this.state.isBig) * this.state.isNeedle;
-      this.setState({
-        showResults: true,
-        willBeBig: this.state.shouldBig,
-        willBeNeedle: newNeedle
+      shouldBigDecimal = calculations.undoFraction(this.state.shouldBig);
+      const newNeedle = ((shouldBigDecimal / isBigDecimal) * isNeedleDecimal);
+      const twoNeedles = calculations.returnNeedles(newNeedle);
+      let size = [...Array(twoNeedles.length)];
+      twoNeedles.forEach((needle, index) => {
+        size[index] = ((needle / isNeedleDecimal) * isBigDecimal).toFixed(3);
       })
+      // console.log(`needle needed: ${newNeedle}`);
+      // console.log(`needles ${twoNeedles}`);
+      // console.log(`sizes ${size}`)
+      twoNeedles.length === 1 ? 
+        this.setState({
+          showResults: true,
+          willBeBig: size[0],
+          willBeNeedle: twoNeedles[0]
+        })
+        : this.setState({
+          showResults: true,
+          willBeBig: size[0],
+          willBeNeedle: twoNeedles[0],
+          willBeBig1: size[1],
+          willBeNeedle1: twoNeedles[1]
+        })
     }
   }
 
@@ -187,7 +216,14 @@ class Calculator extends Component {
         {this.state.showResults ? 
           <div className="result">
             <p className="title">What it will be:</p>
-            <p>Using a <span style={{ fontWeight: 'bold' }}>{this.state.willBeNeedle}</span>mm needle/hook your item will be <span style={{ fontWeight: 'bold' }}>{this.state.willBeBig}</span> units big</p>
+            <p>Using a <span style={{ fontWeight: 'bold' }}>{this.state.willBeNeedle}</span> mm needle/hook your item will be <span style={{ fontWeight: 'bold' }}>{this.state.willBeBig}</span> units big</p>
+            {this.state.willBeNeedle1 ? 
+              <React.Fragment>
+                <p>Using a <span style={{ fontWeight: 'bold' }}>{this.state.willBeNeedle1}</span> mm needle/hook your item will be <span style={{ fontWeight: 'bold' }}>{this.state.willBeBig1}</span> units big</p>
+                <p style={{ fontStyle: 'italic' }}>Target size: {calculations.undoFraction(this.state.shouldBig)} units</p>
+              </React.Fragment>
+              : null
+            }
           </div>
         : null}
       </React.Fragment>
