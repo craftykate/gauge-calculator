@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-
 import './App.css';
-import Header from '../Header/Header';
-
+import Layout from '../Layout/Layout';
+import Calculator from '../Calculator/Calculator';
 
 class App extends Component {
   render() {
     return (
-      <Header />
+      <Layout>
+        <Calculator />
+      </Layout>
     );
   }
 }
