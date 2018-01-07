@@ -2,7 +2,7 @@ import React from 'react';
 import './Calculator.css';
 import InputFields from '../InputFields/InputFields';
 import Popup from '../UI/Popup/Popup'; 
-import calculations from '../../utils/calculations';
+import Results from '../Results/Results';
 
 const calculator = (props) => (
   <React.Fragment>
@@ -72,17 +72,8 @@ const calculator = (props) => (
       </div>
     </div>
     {props.state.showResults ? 
-      <div className="result">
-        <p className="title">What it will be:</p>
-        <p>Using a <span style={{ fontWeight: 'bold' }}>{props.state.willBeNeedle}</span> mm needle/hook your item will be <span style={{ fontWeight: 'bold' }}>{props.state.willBeBig}</span> units big</p>
-        {props.state.willBeNeedle1 ? 
-          <React.Fragment>
-            <p>Using a <span style={{ fontWeight: 'bold' }}>{props.state.willBeNeedle1}</span> mm needle/hook your item will be <span style={{ fontWeight: 'bold' }}>{props.state.willBeBig1}</span> units big</p>
-            <p style={{ fontStyle: 'italic' }}>Target size: {calculations.undoFraction(props.state.shouldBig)} units</p>
-          </React.Fragment>
-          : null
-        }
-      </div>
+      <Results 
+        state={props.state}/>
     : null}
   </React.Fragment>
 );
