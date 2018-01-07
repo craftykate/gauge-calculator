@@ -8,7 +8,7 @@
   border: 1px solid $main;
   @include round(10px);
   .error {
-    color: red;
+    color: $error;
     font-size: 90%;
     margin-bottom: 10px;;
   }
@@ -20,7 +20,7 @@
       font-style: italic;
       font-size: .8em;
       line-height: .8em;
-      color: lighten($text, 20%);
+      color: $error;
     }
   }
   .inputFields {

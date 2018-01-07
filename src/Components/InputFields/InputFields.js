@@ -30,8 +30,7 @@ const inputFields = (props) => {
       <p>{info.title}:</p>
       <input 
         value={props.value}
-        onChange={(event) => props.updateValue(info.type, event)}
-        placeholder={info.placeholder}/>
+        onChange={(event) => props.updateValue(info.type, event)}/>
     </div>
   )
 };

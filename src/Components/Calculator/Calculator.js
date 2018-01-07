@@ -20,6 +20,19 @@ class Calculator extends Component {
     this.checkReady();
   }
 
+  reset = () => {
+    this.setState({
+      ready: false,
+      errorMessage: null,
+      isBig: '',
+      isNeedle: '',
+      shouldBig: '',
+      shouldNeedle: '',
+      willBeBig: '',
+      willBeNeedle: ''
+    })
+  }
+
   checkReady = () => {
     if (this.state.isBig && this.state.isNeedle) {
       if ((this.state.shouldBig || this.state.shouldNeedle) && !(this.state.shouldBig && this.state.shouldNeedle)) {
@@ -152,6 +165,11 @@ class Calculator extends Component {
               disabled={!this.state.ready}>
               Calculate
             </button>
+            <a 
+              onClick={this.reset}
+              style={{marginLeft: 20}}>
+              (clear)
+            </a>
           </div>
         </div>
       </React.Fragment>
