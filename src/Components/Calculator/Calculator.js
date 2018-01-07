@@ -5,7 +5,38 @@ import Popup from '../UI/Popup/Popup';
 
 class Calculator extends Component {
   state = {
-    showPopup: false
+    showPopup: false,
+    ready: false,
+    isBig: '',
+    isNeedle: '',
+    shouldBig: '',
+    shouldNeedle: ''
+  }
+
+  componentDidUpdate() {
+    this.checkReady();
+  }
+
+  updateValue = (field, event) => {
+    this.setState({
+      [field]: event.target.value
+    })
+  }
+
+  checkReady = () => {
+    if (this.state.isBig && this.state.isNeedle) {
+      if ((this.state.shouldBig || this.state.shouldNeedle) && !(this.state.shouldBig && this.state.shouldNeedle)) {
+        if (this.state.ready === false) {
+          this.setState({
+            ready: true
+          })
+        }
+      } else if (this.state.ready === true) {
+        this.setState({
+          ready: false
+        })
+      }
+    }
   }
 
   showPopupHandler = () => {
@@ -30,16 +61,22 @@ class Calculator extends Component {
             <span>(Answer both)</span>
           </p>
           <InputFields 
-            type="isBig"/>
+            type="isBig"
+            value={this.state.isBig}
+            updateValue={this.updateValue}/>
           <InputFields
-            type="isNeedle"/>
+            type="isNeedle"
+            value={this.state.isNeedle}
+            updateValue={this.updateValue}/>
           <Popup
             show={this.state.showPopup}
             hide={this.hidePopupHandler}>
             <p style={{fontWeight: 'bold'}}>What it is:</p>
             <p>Fractions okay. Enter with a space, like this: 6 5/8</p>
             <p>Pick a dimension: width, length, etc.</p>
-            <p>Enter size in any unit - the result will be in the same unit.</p>
+            <p>Enter size in any unit</p>
+            <p>The result will be in the same dimension and unit</p>
+            <p>Example: if your item is 4" long the calculated results will show the new length in inches</p>
             <p style={{fontWeight:'bold'}}>What it should be:</p>
             <p>Answer only one, the blank one will be calculated.</p>
           </Popup>
@@ -49,14 +86,19 @@ class Calculator extends Component {
             <span>(Answer one)</span>
           </p>
           <InputFields
-            type="shouldBig" />
+            type="shouldBig"
+            value={this.state.shouldBig}
+            updateValue={this.updateValue}/>
           <InputFields
-            type="shouldNeedle" />
+            type="shouldNeedle"
+            value={this.state.shouldNeedle}
+            updateValue={this.updateValue}/>
           <div className="buttonHolder">
-            <a 
-              className="button">
+            <button 
+              className="button"
+              disabled={!this.state.ready}>
               Calculate
-            </a>
+            </button>
           </div>
         </div>
       </React.Fragment>

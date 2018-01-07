@@ -33,6 +33,10 @@
     .button {
       @include button($main, darken($main, 20%));
       display: inline-block;
+      &:disabled {
+        background-color: lightgray;
+        cursor: auto;
+      }
     }
   }
 }
