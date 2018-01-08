@@ -20,7 +20,7 @@ const calculations = {
       const numerator = fractionArray[0];
       const denominator = fractionArray[1];
       const decimal = (numerator / denominator);
-      const entireNumber = (Number(wholeNumber) + decimal).toFixed(3);
+      const entireNumber = (Number(wholeNumber) + decimal);
       if (!isNaN(entireNumber)) {
         return entireNumber;
       } else {
@@ -106,7 +106,7 @@ const calculations = {
     // calculate what the new size will be
     if (shouldBig === '') {
       shouldNeedleDecimal = this.undoFraction(shouldNeedle);
-      let newSize = ((shouldNeedleDecimal / isNeedleDecimal) * isBigDecimal).toFixed(3);
+      let newSize = ((shouldNeedleDecimal / isNeedleDecimal) * isBigDecimal);
       return [
         [newSize, shouldNeedle],
         ['', '']
@@ -118,7 +118,7 @@ const calculations = {
       const twoNeedles = this.returnNeedles(newNeedle);
       let size = [...Array(twoNeedles.length)];
       twoNeedles.forEach((needle, index) => {
-        size[index] = ((needle / isNeedleDecimal) * isBigDecimal).toFixed(3);
+        size[index] = ((needle / isNeedleDecimal) * isBigDecimal);
       });
       if (twoNeedles.length === 1) {
         return [
