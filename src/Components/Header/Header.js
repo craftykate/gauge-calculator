@@ -2,7 +2,7 @@ import React from 'react';
 
 const header = () => (
   <header>
-    <h1>Kate's Gauge Calculator</h1>
+    <h1>Gauge Calculator</h1>
   </header>
 );
 

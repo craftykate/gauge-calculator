@@ -10,7 +10,7 @@ I was knitting a bunch of cute little things the other day in various colors whe
 
 Enter in your current gauge or item size and which needle you used and then enter the gauge or size it _should_ be and the app will tell you which needle to use. Or conversely, enter in the needle you _want_ to use and it will tell you what your gauge will be. It's super handy and as soon as I finished the program I used it to calculate that I need to use 3.5 mm needles instead of 3 mm needles to get the blue thingy to be just the right size. 
 
-<img src="public/screenshot.jpg" alt="" width="400"/>
+<img src="public/screenshot.png" alt="" width="400"/>
 
 ## Features
 
