@@ -50,8 +50,11 @@
 		font-weight:bold;
 	}
 
-	ol {
-		margin-left: 10px;
+	ul {
+		li {
+			color: $text;
+			font-size: 95%;
+		}
 	}
 
 	li {

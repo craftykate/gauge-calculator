@@ -5,12 +5,6 @@ import CalculatorDisplay from '../CalculatorDisplay/CalculatorDisplay';
 
 const calculator = (props) => (
   <React.Fragment>
-    <a
-      className="hint"
-      onClick={props.showPopup}>
-      (help)
-    </a>
-    
     <CalculatorDisplay 
       state={props.state}
       updateValue={props.updateValue}

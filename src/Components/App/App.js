@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Layout from '../Layout/Layout';
+import Description from '../Description/Description';
 import Calculator from '../Calculator/Calculator';
 import calculations from '../../utils/calculations';
 
@@ -127,7 +128,8 @@ class App extends Component {
           hidePopup={this.hidePopupHandler}
           calculate={this.calculate}
           reset={this.reset}
-          state={this.state}/>
+          state={this.state} />
+        <Description />
       </Layout>
     );
   }
