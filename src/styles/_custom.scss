@@ -9,7 +9,9 @@
 	#wrapper {
 		margin: 10px auto 0 auto;
 		width: 90%;
-		max-width: 600px;
+		@media (min-width: 500px) {
+			max-width: 500px;
+		}
 	}
 
 	.clear {

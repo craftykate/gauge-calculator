@@ -26,6 +26,9 @@
     margin-top: 20px;
     width: 50%;
     display: inline-block;
+    @media (max-width: 400px) {
+      width: 100%;
+    }
   }
   .hint {
     cursor: pointer;
@@ -47,4 +50,16 @@
 
 .result {
   margin-top: 20px;
+  .title {
+    margin-bottom: 10px;
+  }
+  .units {
+    margin-left: 10px;
+    color: darken($main, 20%);
+    margin-bottom: 10px;
+  }
+  .target {
+    font-style: italic;
+    color: lighten($text, 20%);
+  }
 }

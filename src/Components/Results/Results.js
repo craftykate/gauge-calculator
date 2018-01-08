@@ -7,22 +7,27 @@ const results = (props) => (
     <p>
       Using a <span style={{ fontWeight: 'bold' }}>
         {props.state.willBeNeedle}
-      </span> mm needle/hook your item will be <span style={{ fontWeight: 'bold' }}>
+      </span> mm needle/hook: 
+    </p>
+    <p className="units">
+      your item will be <span style={{ fontWeight: 'bold' }}>
         {parseFloat(props.state.willBeBig.toFixed(3))}
       </span> units big
     </p>
-    
+  
     {props.state.willBeNeedle1 ?
       <React.Fragment>
         <p>
           Using a <span style={{ fontWeight: 'bold' }}>
             {props.state.willBeNeedle1}
-          </span> mm needle/hook your item will be <span style={{ fontWeight: 'bold' }}>
+          </span> mm needle/hook:
+        </p> 
+        <p className="units">
+          your item will be <span style={{ fontWeight: 'bold' }}>
             {parseFloat(props.state.willBeBig1.toFixed(3))}
           </span> units big
         </p>
-        <br />
-        <p style={{ fontStyle: 'italic' }}>
+        <p className="target">
           Target size: {calculations.undoFraction(props.state.shouldBig)} units
         </p>
       </React.Fragment>
