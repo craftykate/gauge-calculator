@@ -4,7 +4,8 @@ import './Description.css';
 const Description = (props) => (
   <div className="description">
     <p className="title">What to do:</p>
-    <p>Is your gauge a little off or the size of your item not quite right? <span>Enter your current gauge and the needle or hook you used</span> then:</p>
+    <p>Is your gauge a little off or the size of your item not quite right?</p> 
+    <p><span>Enter your current gauge and the needle or hook you used</span> then:</p>
     <ul>
       <li>- <span>Enter what your gauge should be</span> and click calculate to see what needle you should use</li>
   <li>- Or <span>enter which needle you'd like to use</span> to see what your gauge will be!</li>
@@ -22,6 +23,7 @@ const Description = (props) => (
     </ul>
     <p className="title">Results: </p>
     <ul>
+      <li>- If the results are not a whole number you'll also see it rounded to the nearest 1/8th</li>
       <li>- If the needle needed falls between two needle sizes you'll get results from both those needles and you can decide which one suits you.</li>
     </ul>
   </div>

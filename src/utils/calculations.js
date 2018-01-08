@@ -33,9 +33,9 @@ const calculations = {
   },
 
   // returns the whole number as a fraction
-  fractionized(number, calcType) {
+  fractionized(number) {
     // turn the decimal part into a fraction
-    const fraction = this.returnFraction(number, calcType);
+    const fraction = this.returnFraction(number);
     // isolate the number before the decimal
     number = number - (number % 1);
     // if fraction is equal to 1, the fraction is almost 1, so add 1 to number and return it
@@ -51,9 +51,9 @@ const calculations = {
   },
   
   // returns the decimal part of the number as a fraction
-  returnFraction(number, calcType) {
-    const decimals = [0, 0.0625, 0.125, 0.1875, 0.25, 0.3125, 0.375, 0.4375, 0.5, 0.5625, 0.625, 0.6875, 0.75, 0.8125, 0.875, 0.9375, 1];
-    const fractions = ["0", "1/16", "1/8", "3/16", "1/4", "5/16", "3/8", "7/16", "1/2", "9/16", "5/8", "11/16", "3/4", "13/16", "7/8", "15/16", "1"]
+  returnFraction(number) {
+    const decimals = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1];
+    const fractions = ["0", "1/8", "1/4", "3/8", "1/2", "5/8", "3/4", "7/8", "1"]
     // set up comparison variable
     let lastMargin = 1
     // variable to store closest fraction
@@ -90,7 +90,6 @@ const calculations = {
       return [needlesArray[needle2Index]]
     } else if (needle2Index === -1) {
       // last needle wasn't big enough, so just return last needle
-
       return [needlesArray[needlesArray.length - 1]]
     } else {
       return [needlesArray[needle2Index - 1], needlesArray[needle2Index]]
