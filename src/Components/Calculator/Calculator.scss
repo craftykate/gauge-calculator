@@ -53,6 +53,9 @@
   .title {
     margin-bottom: 10px;
   }
+  .needle span, .units span {
+    font-weight: bold;
+  }
   .units {
     margin-left: 10px;
     color: darken($main, 20%);
@@ -61,5 +64,11 @@
   .target {
     font-style: italic;
     color: lighten($text, 20%);
+  }
+  span.difference {
+    display: block;
+    color: lighten($text, 25%);
+    font-size: 80%;
+    font-weight: normal;
   }
 }
