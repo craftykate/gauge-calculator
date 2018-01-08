@@ -6,7 +6,7 @@ const results = (props) => {
   const needle = props.state.willBeNeedle;
   const size = parseFloat(props.state.willBeBig.toFixed(3));
   const needle1 = props.state.willBeNeedle1;
-  const size1 = parseFloat(props.state.willBeBig1.toFixed(3));
+  const size1 = props.state.willBeBig1 ? parseFloat(props.state.willBeBig1.toFixed(3)) : '';
 
   return (
     <div className="result">
